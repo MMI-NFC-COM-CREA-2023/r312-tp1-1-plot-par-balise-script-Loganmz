@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+</head>
+<body>
+    <div id="map" style="width: 600px; height: 400px;"></div>
+    
+    <script>
+        var map = L.map('map').setView([51.505, -0.09], 13); // Centre de la carte
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map); // Fond de carte
+
+        // Charger des établissements à partir d'un fichier JSON
+        fetch('path_to_your_json_file.json')
+        .then(response => response.json())
+        .then(data => {
+            data.establishments.forEach(function(establishment) {
+                L.marker([establishment.lat, establishment.lng])
+                .addTo(map)
+                .bindPopup(establishment.name);
+            });
+        });
+    </script>
+</body>
+</html>
